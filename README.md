@@ -3,7 +3,8 @@
 ## Intro
 
 ## Search
-![BFS](/search/imgs/BFS.png)
+**Breadth First Search**
+![BFS](/search/imgs/BFS.png | width = 100)
 ## Multi-Agent
 
 ## Reinforcement Learning
