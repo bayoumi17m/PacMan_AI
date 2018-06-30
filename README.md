@@ -3,47 +3,29 @@
 ## Intro
 
 ## Search
-**Breadth First Search**
-</br>
-<img src="/search/imgs/BFS.png" alt="BFS" width="200px"/>
-</br>
+1. BFS, DFS, UCS, A*
+```bash
+$ python pacman.py -l bigMaze -z .5 -p SearchAgent -a fn=dfs
+$ python pacman.py -l bigMaze -p SearchAgent -a fn=bfs -z .5
+$ python pacman.py -l bigMaze -p SearchAgent -a fn=ucs
+$ python pacman.py -l bigMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic
+```
 
-**Depth First Search**
-</br>
-<img src="/search/imgs/DFS.png" alt="DFS" width="200px"/>
-</br>
+2. Corner Problem, Corner Heuristic
+```bash
+$ python pacman.py -l mediumCorners -p SearchAgent -a fn=bfs,prob=CornersProblem
+$ python pacman.py -l mediumCorners -p AStarCornersAgent -z 0.5
+```
 
-**Uniform Cost Search**
-</br>
-<img src="/search/imgs/UCS.png" alt="UCS" width="200px"/>
-</br>
+3. Eating all the Dots
+```bash
+$ python pacman.py -l trickySearch -p SearchAgent -a fn=astar,prob=FoodSearchProblem,heuristic=foodHeuristic
+```
 
-**A\* Search**
-</br>
-<img src="/search/imgs/A*.png" alt="A* Search" width="200px"/>
-</br>
-
-**Corners Problem**
-Representation
-</br>
-<img src="/search/imgs/CornerProb.png" alt="Rep" width="200px"/>
-</br>
-
-Heuristic
-</br>
-<img src="/search/imgs/CornerHeuristic.png" alt="Heur" width="200px"/>
-</br>
-
-
-**Eating All the Dots: Heuristic**
-</br>
-<img src=".png" alt="" with="200px"/>
-</br>
-
-**SubOptimal Search**
-</br>
-<img src=".png" alt="" with="200px"/>
-</br>
+4. SubOptimal Search
+```bash
+$ python pacman.py -l bigSearch -p ClosestDotSearchAgent -z .5 
+```
 
 ## Multi-Agent
 
