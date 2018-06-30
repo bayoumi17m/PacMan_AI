@@ -91,7 +91,7 @@ def depthFirstSearch(problem):
     expanded = set()
     theFringe.push((problem.getStartState(),[]))
 
-    while !(theFringe.isEmpty()):
+    while not (theFringe.isEmpty()):
 
         popState, popMoves = theFringe.pop()
 
