@@ -115,7 +115,30 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    theFringe = util.Queue();
+    expanded = set();
+    theFringe.push((problem.getStartState(),[]));
+
+    while not (theFringe.isEmpty()):
+
+        popState, popMoves = theFringe.pop()
+
+        if (popState in expanded):
+            continue
+
+        if problem.isGoalState(popState):
+            return popMoves
+
+        expanded.add(popState)
+
+        for state, direction, cost in problem.getSuccessors(popState):
+            if (state in expanded):
+                continue
+            theFringe.push(popState, popMoves+[direction])
+
+    return []
+
+
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
