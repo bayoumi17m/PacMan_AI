@@ -3,7 +3,7 @@
 ## Intro
 
 ## Search
-
+![BFS](/search/imgs/BFS.png)
 ## Multi-Agent
 
 ## Reinforcement Learning
