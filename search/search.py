@@ -121,12 +121,12 @@ def breadthFirstSearch(problem):
 
     while not (theFringe.isEmpty()):
 
-        popState, popMoves = theFringe.pop()
+        popState, popMoves= theFringe.pop()
 
         if (popState in expanded):
             continue
 
-        if problem.isGoalState(popState):
+        if (problem.isGoalState(popState)):
             return popMoves
 
         expanded.add(popState)
@@ -134,11 +134,9 @@ def breadthFirstSearch(problem):
         for state, direction, cost in problem.getSuccessors(popState):
             if (state in expanded):
                 continue
-            theFringe.push((popState, popMoves+[direction]))
+            theFringe.push((state, popMoves+[direction]))
 
     return []
-
-
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
