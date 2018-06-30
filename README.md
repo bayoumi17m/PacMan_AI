@@ -4,7 +4,7 @@
 
 ## Search
 **Breadth First Search**
-![BFS](/search/imgs/BFS.png){:height="30%" width="30%"}
+<img src="/search/imgs/BFS.png" alt="BFS" width="200px"/>
 ## Multi-Agent
 
 ## Reinforcement Learning
