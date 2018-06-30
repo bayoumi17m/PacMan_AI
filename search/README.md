@@ -32,10 +32,10 @@ Heuristic
 
 **Eating All the Dots: Heuristic**
 </br>
-<img src="/search/imgs/EatingDots.png" alt="Eating" with="200px"/>
+<img src="/search/imgs/EatingDots.png" alt="Eating" with="100px"/>
 </br>
 
 **SubOptimal Search**
 </br>
-<img src="/search/imgs/SubOptimal.png" alt="SubOptimal" with="200px"/>
+<img src="/search/imgs/SubOptimal.png" alt="SubOptimal" with="100px"/>
 </br>
