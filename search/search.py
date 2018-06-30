@@ -93,20 +93,20 @@ def depthFirstSearch(problem):
 
     while not (theFringe.isEmpty()):
 
-        popState, popMoves = theFringe.pop()
+        currentState, currentMoves = theFringe.pop()
 
-        if (popState in expanded):
+        if (currentState in expanded):
             continue
 
-        if (problem.isGoalState(popState)):
-            return popMoves
+        if (problem.isGoalState(currentState)):
+            return currentMoves
 
-        expanded.add(popState)
+        expanded.add(currentState)
 
-        for state, direction, cost in problem.getSuccessors(popState):
+        for state, direction, cost in problem.getSuccessors(currentState):
             if (state in expanded):
                 continue
-            theFringe.push((state, popMoves+[direction]))
+            theFringe.push((state, currentMoves+[direction]))
 
     return []
 
@@ -121,20 +121,20 @@ def breadthFirstSearch(problem):
 
     while not (theFringe.isEmpty()):
 
-        popState, popMoves= theFringe.pop()
+        currentState, currentMoves= theFringe.pop()
 
-        if (popState in expanded):
+        if (currentState in expanded):
             continue
 
-        if (problem.isGoalState(popState)):
-            return popMoves
+        if (problem.isGoalState(currentState)):
+            return currentMoves
 
-        expanded.add(popState)
+        expanded.add(currentState)
 
-        for state, direction, cost in problem.getSuccessors(popState):
+        for state, direction, cost in problem.getSuccessors(currentState):
             if (state in expanded):
                 continue
-            theFringe.push((state, popMoves+[direction]))
+            theFringe.push((state, currentMoves+[direction]))
 
     return []
 
@@ -147,20 +147,20 @@ def uniformCostSearch(problem):
 
     while not (theFringe.isEmpty()):
 
-        popState, popMoves, popCost = theFringe.pop()
+        currentState, currentMoves, currentCost = theFringe.pop()
 
-        if (popState in expanded):
+        if (currentState in expanded):
             continue
 
-        if (problem.isGoalState(popState)):
-            return popMoves
+        if (problem.isGoalState(currentState)):
+            return currentMoves
 
-        expanded.add(popState)
+        expanded.add(currentState)
 
-        for state, direction, cost in problem.getSuccessors(popState):
+        for state, direction, cost in problem.getSuccessors(currentState):
             if (state in expanded):
                 continue
-            theFringe.push((state,popMoves+[direction],popCost+cost),popCost+cost)
+            theFringe.push((state,currentMoves+[direction],currentCost+cost),currentCost+cost)
 
     return []
 
@@ -174,7 +174,32 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    theFringe = util.PriorityQueue()
+    expanded = set()
+    theFringe.push((problem.getStartState(),[],0),0)
+
+    while not theFringe.isEmpty():
+
+        currentState, currentMoves, currentCost = theFringe.pop()
+
+        if (currentState in expanded):
+            continue
+
+        if problem.isGoalState(currentState):
+            return currentMoves
+
+        expanded.add(currentState)
+
+        for state, direction, cost in problem.getSuccessors(currentState):
+
+            if (state in expanded):
+                continue
+
+            hvalue = heuristic(state, problem)
+            theFringe.push((state, currentMoves+[direction], currentCost+cost),
+            currentCost+cost+hvalue)
+
+    return []
 
 
 # Abbreviations
