@@ -112,11 +112,11 @@ class ReflexAgent(Agent):
 
         # Consider change in amount of capsules
         currentCapsules = currentGameState.getCapsules()
-        if(len(currentCapsules) > len(successorCapsules)):
-        evaluationScore -= 1/20
+        if (len(currentCapsules) > len(successorCapsules)):
+            evaluationScore -= 1/20
 
 
-        return 0 - evalScore - successorGameState.getScore()
+        return 0 - evalScore + successorGameState.getScore()
 
 def scoreEvaluationFunction(currentGameState):
     """
