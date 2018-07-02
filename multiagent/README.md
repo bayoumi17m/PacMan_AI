@@ -1,5 +1,5 @@
 # MultiAgent
-<img src="multiagent/imgs/pacman_multi_agent.png" alt="MA" width="200px"/>
+<a href="url"><img src="https://raw.githubusercontent.com/bayoumi17m/PacMan_AI/master/multiagent/imgs/pacman_multi_agent.png" align="left" height="100" width="200" ></a>
 ## Reflex Agent
 A reflex agent will have to consider both food locations and ghost locations
 to perform well. This agent acts on actions rather than states
