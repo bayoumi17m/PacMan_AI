@@ -21,7 +21,7 @@ performing both exact and approximate inference using Bayes' Nets.
 ## Parts of Project to be Done:
 
 **Exact Inference**
-- [ ] Exact Inference Observation
+- [x] Exact Inference Observation
 - [ ] Exact Inference with Time Elapse
 - [ ] Exact Inference Full Test
 
