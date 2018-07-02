@@ -86,7 +86,7 @@ class ReflexAgent(Agent):
           if ghostPos == newPos:
             return -1
           else:
-            evalScore += 1/util.manhattanDistance(gh, newPos) * 20
+            evalScore += 1/util.manhattanDistance(gh, newPos)
 
         # Consider distance to food
         minDistToFood = 1e10
@@ -99,15 +99,15 @@ class ReflexAgent(Agent):
 
         # Consider change in amount of food
         if (currentGameState.getNumFood() > successorGameState.getNumFood()):
-            evalScore -= 1/10
+            evalScore -= 1/8
 
         # Consider Capsules
         successorCapsules = successorGameState.getCapsules()
         minDistToCapsule = maxInt
         for cap in successorCapsules:
-         currDist = util.manhattanDistance(cap, newPos)
-         if(currDist < minDistToCapsule):
-           minDistToCapsule = currDist
+            currDist = util.manhattanDistance(cap, newPos)
+            if (currDist < minDistToCapsule):
+                minDistToCapsule = currDist
         evaluationScore -= 1/minDistToCapsule * (200/150)
 
         # Consider change in amount of capsules
