@@ -24,9 +24,11 @@ performing both exact and approximate inference using Bayes' Nets.
 - [ ] Exact Inference Observation
 - [ ] Exact Inference with Time Elapse
 - [ ] Exact Inference Full Test
+</br>
 **Particle Filter Inference**
 - [ ] Approximate Inference Observation
 - [ ] Approximate Inference with Time Elapse
+</br>
 **Joint Particle Filter (Marginal) Inference**
 - [ ] Joint Particle Filter Observation
 - [ ] Joint Particle Filter with Elapse Time
