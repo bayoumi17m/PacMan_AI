@@ -4,7 +4,7 @@
 # educational purposes provided that (1) you do not distribute or publish
 # solutions, (2) you retain this notice, and (3) you provide clear
 # attribution to UC Berkeley, including a link to http://ai.berkeley.edu.
-# 
+#
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
 # The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
@@ -74,7 +74,49 @@ class ReflexAgent(Agent):
         newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
 
         "*** YOUR CODE HERE ***"
-        return successorGameState.getScore()
+        evalScore = 0
+
+        if successorGameState.isWin():
+            return 1
+
+        # Consider death by ghosts and distance to them
+        minDistToGhost = 1e10
+        for ghostState in newGhostStates:
+          ghostPos = ghostState.getPosition()
+          if ghostPos == newPos:
+            return -1
+          else:
+            evalScore += 1/util.manhattanDistance(gh, newPos) * 20
+
+        # Consider distance to food
+        minDistToFood = 1e10
+        for food in newFood.asList():
+            currDist = util.manhattanDistance(food, newPos)
+            if (currDist < minDistToFood):
+                minDistToFood = currDist
+
+        evaluationScore -= 1/minDistToFood * 10
+
+        # Consider change in amount of food
+        if (currentGameState.getNumFood() > successorGameState.getNumFood()):
+            evalScore -= 1/10
+
+        # Consider Capsules
+        successorCapsules = successorGameState.getCapsules()
+        minDistToCapsule = maxInt
+        for cap in successorCapsules:
+         currDist = util.manhattanDistance(cap, newPos)
+         if(currDist < minDistToCapsule):
+           minDistToCapsule = currDist
+        evaluationScore -= 1/minDistToCapsule * (200/150)
+
+        # Consider change in amount of capsules
+        currentCapsules = currentGameState.getCapsules()
+        if(len(currentCapsules) > len(successorCapsules)):
+        evaluationScore -= 1/20
+
+
+        return 0 - evalScore - successorGameState.getScore()
 
 def scoreEvaluationFunction(currentGameState):
     """
@@ -170,4 +212,3 @@ def betterEvaluationFunction(currentGameState):
 
 # Abbreviation
 better = betterEvaluationFunction
-
