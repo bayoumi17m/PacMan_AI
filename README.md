@@ -49,6 +49,34 @@ $ python pacman.py -p ExpectimaxAgent -l minimaxClassic -a depth=3
 ```
 
 ## Reinforcement Learning
+1. Value Iteration Agent: an offline planner, not a reinforcement learning
+agent, and so the relevant training option is the number of iterations of
+value iteration it should run (option -i) in its initial planning phase.
+This ends up becoming similar to a Reflex Agent.
+```bash
+$ python gridworld.py -a value -i 5
+```
+
+2. Q-Learning Agent: Q-learning agent, which does very little on construction,
+but instead learns by trial and error from interactions with the environment
+through its update(state, action, nextState, reward) method.
+
+```bash
+$ python gridworld.py -a q -k 100
+```
+
+We can also use a Q-Learning agent to play Pac-Man!
+```bash
+$ python pacman.py -p PacmanQAgent -x 2000 -n 2010 -l smallGrid
+```
+
+3. Approximate Q-Learning Agent: learns weights for features of states,
+where many states might share the same features.
+
+```bash
+$ python pacman.py -p ApproximateQAgent -a extractor=SimpleExtractor -x 50 -n 60 -l mediumGrid
+```
+
 
 ## Tracking
 
