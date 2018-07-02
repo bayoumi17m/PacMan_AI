@@ -2,7 +2,7 @@
 </br>
 <img src="multiagent/imgs/pacman_multi_agent.png" alt="MA" width="200px"/>
 </br>
-## Reflex Agent
+## Reflex Agent - test
 A reflex agent will have to consider both food locations and ghost locations
 to perform well. This agent acts on actions rather than states
 ## Minimax Agent
