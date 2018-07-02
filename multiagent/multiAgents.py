@@ -74,49 +74,23 @@ class ReflexAgent(Agent):
         newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
 
         "*** YOUR CODE HERE ***"
-        evalScore = 0
-
-        if successorGameState.isWin():
-            return 1
-
-        # Consider death by ghosts and distance to them
-        minDistToGhost = 1e10
+        curPos = currentGameState.getPacmanPosition()
+        curFoodList = currentGameState.getFood().asList()
+        curGhostStates = currentGameState.getGhostStates()
+        curScaredTimes = [ghostState.scaredTimer for ghostState in curGhostStates]
+        
+        distance = float("inf")
         for ghostState in newGhostStates:
-          ghostPos = ghostState.getPosition()
-          if ghostPos == newPos:
-            return -1
-          else:
-            evalScore += 1/util.manhattanDistance(gh, newPos)
+            ghostPos = ghostState.getPosition()
+            if ghostPos == newPos:
+                return float("-inf")
 
-        # Consider distance to food
-        minDistToFood = 1e10
-        for food in newFood.asList():
-            currDist = util.manhattanDistance(food, newPos)
-            if (currDist < minDistToFood):
-                minDistToFood = currDist
+        for food in curFoodList:
+            distance = min(distance,manhattanDistance(food,newPos))
+            if Directions.STOP in action:
+                return float("-inf")
 
-        evaluationScore -= 1/minDistToFood * 10
-
-        # Consider change in amount of food
-        if (currentGameState.getNumFood() > successorGameState.getNumFood()):
-            evalScore -= 1/8
-
-        # Consider Capsules
-        successorCapsules = successorGameState.getCapsules()
-        minDistToCapsule = maxInt
-        for cap in successorCapsules:
-            currDist = util.manhattanDistance(cap, newPos)
-            if (currDist < minDistToCapsule):
-                minDistToCapsule = currDist
-        evaluationScore -= 1/minDistToCapsule * (200/150)
-
-        # Consider change in amount of capsules
-        currentCapsules = currentGameState.getCapsules()
-        if (len(currentCapsules) > len(successorCapsules)):
-            evaluationScore -= 1/20
-
-
-        return 0 - evalScore + successorGameState.getScore()
+        return 1.0/(1.0 + distance)
 
 def scoreEvaluationFunction(currentGameState):
     """
