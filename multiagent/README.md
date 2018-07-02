@@ -1,4 +1,5 @@
 # MultiAgent
+<img src="multiagent/imgs/pacman_multi_agent.png" alt="MA" width="200px"/>
 ## Reflex Agent
 A reflex agent will have to consider both food locations and ghost locations
 to perform well. This agent acts on actions rather than states
