@@ -1,16 +1,24 @@
 # MultiAgent
 <img src="/multiagent/imgs/pacman_multi_agent.png" alt="MA" width="400px"/>
-## Reflex Agent
+</br>
+**Reflex Agent**
+</br>
 A reflex agent will have to consider both food locations and ghost locations
 to perform well. This agent acts on actions rather than states
-## Minimax Agent
+</br>
+**Minimax Agent**
+</br>
 An adversarial search agent that evaluates states based on the Minimax algorithm
 which assumes we are playing an adversary that performs optimally
-## Alpha-Beta Agent
+</br>
+##Alpha-Beta Agent
+</br>
 An adversarial search agent that evaluates states based on the Minimax algorithm
 which assumes we are playing an adversary that performs optimally. However, by
 using Alpha-Beta pruning, we can explore this tree more efficiently
-## Expectimax Agent
+</br>
+##Expectimax Agent
+</br>
 As adversarial search agent that evaluates states similar to the Minimax
 algorithm (this is a specialized version of the Minimax algorithm) which does
 not make the same assumptions. In addition to "min" and "max" nodes of the
