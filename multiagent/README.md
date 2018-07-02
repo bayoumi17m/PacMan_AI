@@ -1,10 +1,10 @@
 # MultiAgent
 </br>
-<img src="multiagent/imgs/pacman_multi_agent.png" alt="MA" width="200px"/>
+<img src="/multiagent/imgs/pacman_multi_agent.png" alt="MA" width="200px"/>
 </br>
 ## Reflex Agent
-<--A reflex agent will have to consider both food locations and ghost locations
-to perform well. This agent acts on actions rather than states-->
+A reflex agent will have to consider both food locations and ghost locations
+to perform well. This agent acts on actions rather than states
 ## Minimax Agent
 An adversarial search agent that evaluates states based on the Minimax algorithm
 which assumes we are playing an adversary that performs optimally
