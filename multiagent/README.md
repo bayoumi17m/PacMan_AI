@@ -1,5 +1,4 @@
 # MultiAgent
-<img src="/multiagent/imgs/pacman_multi_agent.png" alt="MA" width="400px"/>
 </br>
 **Reflex Agent**
 </br>
