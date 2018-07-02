@@ -24,10 +24,29 @@ $ python pacman.py -l trickySearch -p SearchAgent -a fn=astar,prob=FoodSearchPro
 
 4. SubOptimal Search
 ```bash
-$ python pacman.py -l bigSearch -p ClosestDotSearchAgent -z .5 
+$ python pacman.py -l bigSearch -p ClosestDotSearchAgent -z .5
 ```
 
 ## Multi-Agent
+1. Reflex Agent
+```bash
+$ python pacman.py -p ReflexAgent -l testClassic
+```
+
+2. Minimax Agent
+```bash
+$ python pacman.py -p MinimaxAgent -l minimaxClassic -a depth=4
+```
+
+3. Alpha-Beta Pruning
+```bash
+$ python pacman.py -p AlphaBetaAgent -a depth=3 -l smallClassic
+```
+
+4. Expectimax Agent
+```bash
+$ python pacman.py -p ExpectimaxAgent -l minimaxClassic -a depth=3
+```
 
 ## Reinforcement Learning
 
