@@ -78,7 +78,7 @@ class ReflexAgent(Agent):
         curFoodList = currentGameState.getFood().asList()
         curGhostStates = currentGameState.getGhostStates()
         curScaredTimes = [ghostState.scaredTimer for ghostState in curGhostStates]
-        
+
         distance = float("inf")
         for ghostState in newGhostStates:
             ghostPos = ghostState.getPosition()
@@ -127,6 +127,92 @@ class MinimaxAgent(MultiAgentSearchAgent):
       Your minimax agent (question 2)
     """
 
+
+    def minimax_value(self, gameState, agentIndex, nodeDepth):
+        """
+        The two players are called maximizer and minimizer. The maximizer tries
+        to get the highest score possible while the minimizer tries to get the
+        lowest score possible.
+
+        Every board state has a value associated with it. In a given state if
+        the maximizer has upper hand then, the score of the board will tend to
+        be some positive value. If the minimizer has the upper hand in that
+        board state then it will tend to be some negative value. The values of
+        the board are calculated by some heuristics which are unique
+        for every type of game
+        """
+        
+        if agentIndex >= gameState.getNumAgents():
+            agentIndex = 0
+            nodeDepth += 1
+
+        if nodeDepth == self.depth:
+            return self.evaluationFunction(gameState)
+
+        if agentIndex == self.index:
+            return self.max_value(gameState, agentIndex, nodeDepth)
+        else:
+            return self.min_value(gameState, agentIndex, nodeDepth)
+
+        return 'None'
+
+
+    def max_value(self, gameState, agentIndex, nodeDepth):
+        """
+        Spec
+        """
+
+        if gameState.isWin() or gameState.isLose():
+            return self.evaluationFunction(gameState)
+
+        value = float("-inf")
+        actionValue = "None"
+
+        legalActions = gameState.getLegalActions(agentIndex)
+
+        for actions in legalActions:
+
+            if actions == Directions.STOP:
+              continue
+
+            successor = gameState.generateSuccessor(agentIndex,actions)
+            temp = self.minimax_value(successor,agentIndex+1,nodeDepth)
+
+            if temp > value:
+                value = max(temp,value)
+                actionValue = actions
+
+        if nodeDepth == 0:
+            return actionValue
+        else:
+            return value
+
+    def min_value(self, gameState, agentIndex, nodeDepth):
+
+        if gameState.isWin() or gameState.isLose():
+            return self.evaluationFunction(gameState)
+
+        value = float("inf")
+        actionValue = "None"
+
+        legalActions = gameState.getLegalActions(agentIndex)
+        agentNumber = gameState.getNumAgents()
+
+        for actions in legalActions:
+
+            if actions == Directions.STOP:
+                continue
+
+            successor = gameState.generateSuccessor(agentIndex,actions)
+            temp = self.minimax_value(successor,agentIndex+1,nodeDepth)
+
+            if temp < value:
+                value = min(temp,value)
+                actionValue = actions
+
+        return value
+
+
     def getAction(self, gameState):
         """
           Returns the minimax action from the current gameState using self.depth
@@ -145,7 +231,7 @@ class MinimaxAgent(MultiAgentSearchAgent):
             Returns the total number of agents in the game
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return self.minimax_value(gameState,0,0)
 
 class AlphaBetaAgent(MultiAgentSearchAgent):
     """
