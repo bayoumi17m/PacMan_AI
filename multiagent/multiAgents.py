@@ -298,6 +298,69 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
       Your expectimax agent (question 4)
     """
 
+    def expectimax_value (self, gameState, agentIndex, nodeDepth):
+
+        if agentIndex >= gameState.getNumAgents():
+            agentIndex = 0
+            nodeDepth += 1
+
+        if nodeDepth == self.depth:
+            return self.evaluationFunction(gameState)
+
+        if agentIndex == self.index:
+            return self.max_value(gameState, agentIndex, nodeDepth)
+        else:
+            return self.exp_value(gameState, agentIndex, nodeDepth)
+
+        return 'None'
+
+    def max_value(self, gameState, agentIndex, nodeDepth):
+
+        if gameState.isWin() or gameState.isLose():
+            return self.evaluationFunction(gameState)
+
+        value = float("-inf")
+        actionValue = "Stop"
+
+        for legalActions in gameState.getLegalActions(agentIndex):
+
+            if legalActions == Directions.STOP:
+                continue
+
+            successor = gameState.generateSuccessor(agentIndex, legalActions)
+            temp = self.expectimax_value(successor, agentIndex+1, nodeDepth)
+
+            if temp > value:
+                value = temp
+                actionValue = legalActions
+
+        if nodeDepth == 0:
+            return actionValue
+        else:
+            return value
+
+    def exp_value(self, gameState, agentIndex, nodeDepth):
+
+        if gameState.isWin() or gameState.isLose():
+            return self.evaluationFunction(gameState)
+
+        value = 0
+
+        probValue = 1.0/len(gameState.getLegalActions(agentIndex))
+
+        for legalActions in gameState.getLegalActions(agentIndex):
+            if legalActions == Directions.STOP:
+                continue
+
+            successor = gameState.generateSuccessor(agentIndex, legalActions)
+            temp = self.expectimax_value(successor, agentIndex+1, nodeDepth)
+
+            value = value + (temp * probValue)
+            actionValue = legalActions
+
+        return value
+
+
     def getAction(self, gameState):
         """
           Returns the expectimax action using self.depth and self.evaluationFunction
@@ -306,7 +369,8 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
           legal moves.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return self.expectimax_value(gameState,0,0)
+
 
 def betterEvaluationFunction(currentGameState):
     """
@@ -316,7 +380,41 @@ def betterEvaluationFunction(currentGameState):
       DESCRIPTION: <write something here so we know what you did>
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    curPos = currentGameState.getPacmanPosition()
+    curFoodList = currentGameState.getFood().asList()
+    curFoodCount = currentGameState.getNumFood()
+    curGhostStates = currentGameState.getGhostStates()
+    curScaredTimes = [ghostState.scaredTimer for ghostState in curGhostStates]
+    curCapsules = currentGameState.getCapsules()
+    curScore = currentGameState.getScore()
+
+    foodLeft = 1.0/(curFoodCount + 1.0)
+    ghostDist = float("inf")
+    scaredGhosts = 0
+
+    # print curScaredTimes
+
+    for ghostState in curGhostStates:
+
+        ghostPos = ghostState.getPosition()
+        if curPos == ghostPos:
+            return float("-inf")
+        else:
+            ghostDist = min(ghostDist,manhattanDistance(curPos,ghostPos))
+
+        if ghostState.scaredTimer != 0:
+            scaredGhosts += 1
+
+    capDist = float("inf")
+    for capsuleState in curCapsules:
+        capDist = min(capDist,manhattanDistance(curPos,capsuleState))
+
+    ghostDist = 1.0/(1.0 + (ghostDist/(len(curGhostStates))))
+    capDist = 1.0/(1.0 + len(curCapsules))
+    scaredGhosts = 1.0/(1.0 + scaredGhosts)
+
+
+    return curScore + (foodLeft + ghostDist + capDist)
 
 # Abbreviation
 better = betterEvaluationFunction
