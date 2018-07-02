@@ -2,7 +2,6 @@
 <a href="url"><img src="https://raw.githubusercontent.com/bayoumi17m/PacMan_AI/master/multiagent/imgs/pacman_multi_agent.png" align="center" height="250" width="500" ></a>
 </br>
 </br>
-</br>
 ## Reflex Agent
 A reflex agent will have to consider both food locations and ghost locations
 to perform well. This agent acts on actions rather than states
