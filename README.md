@@ -79,6 +79,16 @@ $ python pacman.py -p ApproximateQAgent -a extractor=SimpleExtractor -x 50 -n 60
 
 
 ## Tracking
+Pacman spends his life running from ghosts, but things were not always so.
+Legend has it that many years ago, Pacman's great grandfather Grandpac learned
+to hunt ghosts for sport. However, he was blinded by his power and could only
+track ghosts by their banging and clanging! We implement a particle filter
+so that Grandpac can hear the ghosts and track them down! Options include:
+ExactInference, ParticleFilter, and MarginalInference
+
+```None
+$ python busters.py -k 10 -p GreedyBustersAgent -a inference=MarginalInference
+```
 
 ## Classification
 
