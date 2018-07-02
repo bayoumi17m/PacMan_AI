@@ -39,11 +39,6 @@ update(state, action, nextState, reward) method.
 </br>
 <p align="center">
 <img src="/reinforcement/imgs/q-learning.png" alt="qlearn" width="300px"/>
-</p>
-</br>
-
-</br>
-<p align="center">
 <img src="/reinforcement/imgs/QLearn_Pac.png" alt="qlearn" width="300px"/>
 </p>
 </br>
