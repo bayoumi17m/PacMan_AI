@@ -266,6 +266,15 @@ class ParticleFilter(InferenceModule):
         weight with each position) is incorrect and may produce errors.
         """
         "*** YOUR CODE HERE ***"
+        p = self.numParticles
+        legal = self.legalPositions
+        newParticles = []
+
+        while (p > len(legal)):
+            newParticles += legal
+            p -= len(legal)
+
+        self.particles = newParticles
 
     def observe(self, observation, gameState):
         """
@@ -298,7 +307,29 @@ class ParticleFilter(InferenceModule):
         emissionModel = busters.getObservationDistribution(noisyDistance)
         pacmanPosition = gameState.getPacmanPosition()
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        jail = util.Counter()
+
+        if noisyDistance == None:
+            jail[self.getJailPosition()] = 1.0
+            self.beliefs = jail
+        else:
+            tempParticles = util.Counter()
+            for p in self.particles:
+                #  This would be the true distance..
+                distance = util.manhattanDistance(p, pacmanPosition)
+                tempParticles[p] += emissionModel[distance]
+
+            self.beliefs = tempParticles
+
+
+        # If all values are zero .i.e sum should be zero
+        if self.beliefs.totalCount() == 0:
+            self.initializeUniformly(gameState)
+        else:
+            self.beliefs.normalize()
+            for i in range(len(self.particles)):
+                newPos = util.sample(self.beliefs)
+                self.particles[i] = newPos
 
     def elapseTime(self, gameState):
         """
@@ -315,7 +346,10 @@ class ParticleFilter(InferenceModule):
         a belief distribution.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        for i in range(len(self.particles)):
+            p = self.particles[i]
+            newPosDist = self.getPositionDistribution(self.setGhostPosition(gameState, p))
+            self.particles[i] = util.sample(newPosDist)
 
     def getBeliefDistribution(self):
         """
@@ -325,7 +359,12 @@ class ParticleFilter(InferenceModule):
         Counter object)
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        beliefDistribution = util.Counter() # as per above comment
+        for p in self.particles: # converting all particles to util, by adding one for the particles
+            beliefDistribution[p] = beliefDistribution[p] + 1.0
+
+        beliefDistribution.normalize()
+        return beliefDistribution
 
 class MarginalInference(InferenceModule):
     """
