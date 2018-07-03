@@ -177,8 +177,7 @@ class GreedyBustersAgent(BustersAgent):
         bestAction = None
         for action in legal:
             successorPosition = Actions.getSuccessor(pacmanPosition, action)
-            successorDistance = self.distancer.getDistance(closetGhostPosition,
-                successorPosition);
+            successorDistance = self.distancer.getDistance(closetGhostPosition,successorPosition)
             if (successorDistance < closetGhostDistance):
                 bestAction = action
                 closetGhostDistance = successorDistance
