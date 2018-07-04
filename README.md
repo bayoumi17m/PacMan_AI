@@ -91,5 +91,41 @@ $ python busters.py -k 10 -p GreedyBustersAgent -a inference=MarginalInference
 ```
 
 ## Classification
+1. Perceptron
+```None
+$ python dataClassifier.py -c perceptron
+```
 
+2. Perceptron Analysis
+```None
+$ python dataClassifier.py -c perceptron -w
+```
+
+3. MIRA (Large Margin Classifier)
+```None
+$ python dataClassifier.py -c mira --autotune
+```
+
+4. Digit Feature Design
+```None
+$ python dataClassifier.py -d digits -c naiveBayes -f -a -t 1000
+```
+
+5. Behavioral Cloning
+```None
+$ python dataClassifier.py -c perceptron -d pacman
+```
+
+6. PacMan Feature Design
+```None
+$ python dataClassifier.py -c perceptron -d pacman -f -g ContestAgent -t 1000 -s 1000
+```
+or
+```None
+$ python pacman.py -p ClassifierAgent --agentArgs trainingData=<path to training data>
+```
+or
+```None
+$ python pacman.py -p ClassifierAgent --agentArgs agentToClone=<Agent Name>
+```
 ## Credits
