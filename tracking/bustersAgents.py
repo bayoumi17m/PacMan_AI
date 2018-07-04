@@ -174,7 +174,6 @@ class GreedyBustersAgent(BustersAgent):
                     closetGhostDistance = self.distancer.getDistance(pacmanPosition,pos)
                     closetGhostPosition = pos
 
-        print(closetGhostPosition)
         bestAction = None
         for action in legal:
             successorPosition = Actions.getSuccessor(pacmanPosition, action)
