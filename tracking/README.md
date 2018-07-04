@@ -30,5 +30,10 @@ performing both exact and approximate inference using Bayes' Nets.
 - [x] Approximate Inference with Time Elapse
 
 **Joint Particle Filter (Marginal) Inference**
-- [ ] Joint Particle Filter Observation
-- [ ] Joint Particle Filter with Elapse Time
+- [x] Joint Particle Filter Observation
+- [x] Joint Particle Filter with Elapse Time
+
+## Problems
+It seems that there is a problem with the running of MarginalInference which may
+be due to a lack of computing resources since it does take a large amount of
+memory.
