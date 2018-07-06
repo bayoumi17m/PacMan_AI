@@ -4,7 +4,7 @@
 # educational purposes provided that (1) you do not distribute or publish
 # solutions, (2) you retain this notice, and (3) you provide clear
 # attribution to UC Berkeley, including a link to http://ai.berkeley.edu.
-# 
+#
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
 # The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
@@ -78,7 +78,104 @@ def enhancedFeatureExtractorDigit(datum):
     features =  basicFeatureExtractorDigit(datum)
 
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    add_array = []
+    max_count = 0
+    count = 1
+    region = 0
+    region_count = 0
+    final = 0
+    region_counter = 0
+
+    featCount = 1
+
+    for i in range(DIGIT_DATUM_WIDTH):
+        add_array.append(0)
+
+    for y in range(DIGIT_DATUM_HEIGHT):
+        max_count = max(add_array)
+
+        if max_count >= region_count:
+            region_count = max_count
+
+        final = max(region_counter, final)
+
+        count = 1
+        region = 0
+        region_counter = 0
+        isOne = 0
+
+        for x in range(DIGIT_DATUM_WIDTH):
+            pixel = features[(x, y)]
+
+            if pixel == 1:
+                if region == 1:
+                    region_counter += 1
+                    add_array[x] = count
+                    region = 0
+                    isOne = 1
+                else:
+                    add_array[x] = count
+                    region = 0
+                    isOne = 1
+                    # region_counter += 1
+            else:
+                if isOne == 0 and add_array != 1:
+                    count += 1
+                    add_array[x] = 0
+                    region = 1
+                else:
+                    add_array[x] = 0
+                    region = 1
+                    isOne = 0
+
+        feature_counter = 1
+
+    if final <= 0:
+        features['1'] = 1
+        features['2'] = 1
+        features['3'] = 0
+        features['5'] = 1
+        features['7'] = 1
+        features['4'] = 0
+        features['6'] = 0
+        features['8'] = 0
+        features['9'] = 0
+    else:
+        features['4'] = 1
+        features['6'] = 1
+        features['8'] = 1
+        features['9'] = 1
+        features['1'] = 0
+        features['2'] = 0
+        features['3'] = 1
+        features['5'] = 0
+        features['7'] = 1
+
+    for x in range(DIGIT_DATUM_WIDTH):
+        NumArea = check1 = area = check2 = 0
+        for y in range(DIGIT_DATUM_HEIGHT):
+            if features[(x, y)] > 0:
+                if check1 == 0:
+                    check1 = 1
+            if features[(x, y)] == 0:
+                if check1 == 1:
+                    if area == 0:
+                        area = 1
+            if features[(x, y)] > 0:
+                if check1 == 1:
+                    if area == 1:
+                        check2 = 1
+            if features[(x, y)] == 0:
+                if check1 == 1:
+                    if area == 1:
+                        if check2 == 1:
+                            NumArea += 1
+                            check1 = area = check2 = 0
+            if NumArea > 0:
+                features[feature_counter] = 1
+            else:
+                features[feature_counter] = 0
+            feature_counter += 1
 
     return features
 
@@ -124,7 +221,50 @@ def enhancedPacmanFeatures(state, action):
     """
     features = util.Counter()
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    successor = state.generateSuccessor(0, action)
+    foodCount = successor.getNumFood()
+    curCapsules = successor.getCapsules()
+    capsuleCount = len(successor.getCapsules())
+    score = successor.getScore()
+    ghostCount = len(successor.getGhostPositions())
+    win = successor.isWin()
+    lose = successor.isLose()
+
+    pacmanPosition = successor.getPacmanPosition()
+
+    currentFood = state.getFood()
+
+    width = len(currentFood[:])
+    height = len(currentFood[0])
+    minDist = float("inf")
+
+    for x in range(width):
+        for y in range(height):
+            if currentFood[x][y]:
+                dist = util.manhattanDistance((x, y), pacmanPosition)
+                if dist < minDist:
+                    minDist = dist
+
+    minGhostDist = float("inf")
+
+    ghostList = []
+    for g in successor.getGhostStates():
+        ghostList.append(util.manhattanDistance(g.getPosition(),pacmanPosition))
+
+    capDist = float("inf")
+    for capsuleState in curCapsules:
+        capDist = min(capDist, util.manhattanDistance(pacmanPosition, capsuleState))
+
+    features['food'] = minDist
+
+    if action == 'Stop':
+        features['Stop'] = 1
+    else:
+        features['Stop'] = 0
+
+    features['foodCount'] = foodCount
+    features['ghost'] = min(ghostList)
+
     return features
 
 
@@ -364,7 +504,7 @@ def runClassifier(args, options):
     featureFunction = args['featureFunction']
     classifier = args['classifier']
     printImage = args['printImage']
-    
+
     # Load data
     numTraining = options.training
     numTest = options.test
